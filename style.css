@@ -1,309 +1,45 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Rajdhani:wght@500;700&display=swap');
 
 :root {
-    --navy: #000B1A;
+    --bg: #000B1A;
     --gold: #D4AF37;
-    --gold-light: #E8C547;
-    --gold-dark: #A68A2B;
-    --gray-dark: #1A1F2E;
-    --gray: #2A2F40;
-    --white: #F8F9FA;
-    --text-primary: #E8E8E8;
-    --text-secondary: #B0B3B8;
-    --border-gold: #D4AF37;
-    --shadow-gold: 0 0 20px rgba(212, 175, 55, 0.3);
+    --text: #F5F5F5;
+    --card: rgba(0, 21, 41, 0.7);
+    --glow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
-body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(135deg, var(--navy) 0%, #0A1425 50%, var(--navy) 100%);
-    color: var(--text-primary);
-    min-height: 100vh;
-    overflow-x: hidden;
-    position: relative;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Rajdhani', sans-serif; scroll-behavior: smooth; overflow-x: hidden; }
 
-.vault-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: 
-        radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.1) 0%, transparent 50%),
-        radial-gradient(circle at 80% 20%, rgba(212, 175, 55, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 40% 40%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: -1;
-}
+/* Animasi Gahar */
+@keyframes goldGlow { 0%, 100% { text-shadow: var(--glow); } 50% { text-shadow: 0 0 25px rgba(212, 175, 55, 0.6); } }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
+.container { width: 90%; max-width: 1100px; margin: auto; }
+.navbar-brand { font-family: 'Cinzel', serif; font-size: 2rem; color: var(--gold); text-align: center; padding: 40px 0; animation: goldGlow 3s infinite; letter-spacing: 4px; }
 
-/* Header */
-.header {
-    background: rgba(0, 11, 26, 0.95);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid rgba(212, 175, 55, 0.2);
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    padding: 1rem 0;
-}
+/* Menu Utama */
+.main-menu { display: flex; justify-content: center; gap: 15px; margin-bottom: 50px; flex-wrap: wrap; }
+.btn { padding: 12px 25px; border-radius: 5px; cursor: pointer; transition: 0.4s; font-weight: 700; text-transform: uppercase; border: 1px solid var(--gold); background: transparent; color: var(--gold); }
+.btn:hover, .btn-active { background: var(--gold); color: #000; box-shadow: var(--glow); }
 
-.header .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+/* Card Berita */
+.news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+.news-card { background: var(--card); border: 1px solid rgba(212, 175, 55, 0.2); padding: 25px; border-radius: 12px; animation: fadeInUp 0.6s ease-out; backdrop-filter: blur(10px); position: relative; overflow: hidden; }
+.news-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--gold); }
+.news-card h3 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 15px; }
 
-.logo .title {
-    font-size: clamp(1.5rem, 4vw, 2.5rem);
-    font-weight: 700;
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    position: relative;
-    display: inline-block;
-}
+/* 3 Sisi Mata (Source Buttons) */
+.source-wrap { display: flex; gap: 10px; margin-top: 20px; }
+.src-btn { flex: 1; padding: 8px; font-size: 0.75rem; text-align: center; border-radius: 4px; border: 1px solid rgba(255,255,255,0.1); color: #888; text-decoration: none; }
+.src-btn:hover { border-color: var(--gold); color: #fff; }
 
-.glow-effect {
-    position: absolute;
-    top: -10px;
-    left: -10px;
-    right: -10px;
-    bottom: -10px;
-    background: linear-gradient(45deg, var(--gold), var(--gold-light), var(--gold));
-    border-radius: 50%;
-    filter: blur(20px);
-    opacity: 0.3;
-    animation: goldPulse 4s ease-in-out infinite;
-    z-index: -1;
-}
+/* Admin Form */
+.vault-form { background: var(--card); border: 2px solid var(--gold); padding: 30px; border-radius: 15px; margin-bottom: 30px; }
+input, textarea, select { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #333; color: var(--gold); border-radius: 5px; }
+.ql-container { background: #000; color: #fff; height: 200px; border-radius: 0 0 5px 5px; }
+.ql-toolbar { background: #111; border-radius: 5px 5px 0 0; }
 
-@keyframes goldPulse {
-    0%, 100% { transform: scale(1); opacity: 0.3; }
-    50% { transform: scale(1.05); opacity: 0.5; }
-}
-
-.nav {
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-}
-
-.nav-link {
-    color: var(--text-secondary);
-    text-decoration: none;
-    font-weight: 500;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-}
-
-.nav-link:hover,
-.nav-link.active {
-    color: var(--gold);
-    background: rgba(212, 175, 55, 0.1);
-}
-
-.admin-btn {
-    background: linear-gradient(135deg, var(--gold), var(--gold-light));
-    color: var(--navy);
-    padding: 0.75rem 1.5rem;
-    border-radius: 25px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.3s ease;
-    box-shadow: var(--shadow-gold);
-}
-
-.admin-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
-}
-
-/* Search */
-.search-section {
-    padding: 2rem 0;
-    background: rgba(26, 31, 46, 0.5);
-    backdrop-filter: blur(10px);
-}
-
-.search-container {
-    position: relative;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.search-input {
-    width: 100%;
-    padding: 1.25rem 1.5rem 1.25rem 3rem;
-    background: rgba(42, 47, 64, 0.8);
-    border: 2px solid rgba(212, 175, 55, 0.2);
-    border-radius: 50px;
-    font-size: 1rem;
-    color: var(--text-primary);
-    backdrop-filter: blur(20px);
-    transition: all 0.3s ease;
-}
-
-.search-input:focus {
-    outline: none;
-    border-color: var(--gold);
-    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
-}
-
-.search-icon {
-    position: absolute;
-    left: 1.25rem;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.25rem;
-}
-
-/* Content Sections */
-.content-section {
-    display: none;
-    padding: 3rem 0;
-    min-height: 60vh;
-}
-
-.content-section.active {
-    display: block;
-    animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 3rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.section-title {
-    font-size: clamp(1.75rem, 3vw, 2.5rem);
-    font-weight: 600;
-    background: linear-gradient(135deg, var(--text-primary), var(--gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.stats {
-    background: rgba(212, 175, 55, 0.15);
-    color: var(--gold);
-    padding: 0.5rem 1rem;
-    border-radius: 25px;
-    font-weight: 500;
-    font-size: 0.95rem;
-}
-
-/* News Grid */
-.news-grid,
-.dictionary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 2rem;
-}
-
-.loading-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-    gap: 2rem;
-    min-height: 400px;
-}
-
-.loading-card,
-.loading-dict {
-    height: 300px;
-    background: linear-gradient(90deg, var(--gray) 25%, rgba(212, 175, 55, 0.1) 50%, var(--gray) 75%);
-    background-size: 200% 100%;
-    border-radius: 20px;
-    animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
-}
-
-/* News Cards */
-.news-card {
-    background: rgba(26, 31, 46, 0.6);
-    backdrop-filter: blur(20px);
-    border: 1px solid rgba(212, 175, 55, 0.2);
-    border-radius: 20px;
-    padding: 2rem;
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    animation: cardSlideUp 0.8s ease-out forwards;
-    opacity: 0;
-    transform: translateY(50px);
-}
-
-.news-card:nth-child(1) { animation-delay: 0.1s; }
-.news-card:nth-child(2) { animation-delay: 0.2s; }
-.news-card:nth-child(3) { animation-delay: 0.3s; }
-
-@keyframes cardSlideUp {
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.news-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), var(--shadow-gold);
-    border-color: var(--gold);
-}
-
-.news-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
-}
-
-.category-tag {
-    display: inline-block;
-    background: rgba(212, 175, 55, 0.2);
-    color: var(--gold);
-    padding: 0.25rem 0.75rem;
-    border-radius: 15px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-}
-
-.news-title {
-    font-size: 1.25rem;
+/* Section About/Visi */
+.info-sec { margin-top: 80px; padding: 60px 0; border-top: 1px solid #111; }
+.info-sec h2 { font-family: 'Cinzel', serif; color: var(--gold); margin-bottom: 20px; }
