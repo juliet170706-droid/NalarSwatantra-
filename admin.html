@@ -3,52 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Nalar Swatantra</title>
+    <title>Admin Vault - Nalar Swatantra</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-</head>
-<body>
-
-    <div id="loginGate" class="container" style="padding-top:100px; max-width:400px;">
-        <div class="vault-form">
-            <h2 style="text-align:center; color:var(--gold);">ACCESS REQUIRED</h2>
-            <input type="email" id="admEmail" placeholder="Email">
-            <input type="password" id="admPass" placeholder="Password">
-            <button onclick="login()" class="btn" style="width:100%; margin-top:10px;">Authorize</button>
-        </div>
-    </div>
-
-    <div id="adminPanel" class="container" style="display:none; padding-bottom:50px;">
-        <h2 class="navbar-brand">Dashboard Admin</h2>
-        <div style="text-align:right; margin-bottom:20px;">
-            <button onclick="logout()" class="btn" style="border-color:red; color:red;">Logout</button>
-        </div>
-
-        <div class="vault-form">
-            <h3>+ Tambah Analisis Baru</h3>
-            <input type="hidden" id="editId">
-            <input type="text" id="judul" placeholder="Judul Berita">
-            <div id="editor" style="margin-bottom:10px;"></div>
-            <input type="text" id="linkBarat" placeholder="Link Sumber Barat">
-            <input type="text" id="linkTimur" placeholder="Link Sumber Timur">
-            <input type="text" id="linkNetral" placeholder="Link Fakta Netral">
-            <button onclick="saveNews()" class="btn" id="saveBtn">Publish Analisis</button>
-        </div>
-
-        <div class="vault-form">
-            <h3>+ Tambah Kamus</h3>
-            <input type="text" id="term" placeholder="Istilah">
-            <textarea id="def" placeholder="Definisi"></textarea>
-            <button onclick="saveDict()" class="btn">Update Kamus</button>
-        </div>
-
-        <div id="manageList"></div>
-    </div>
-
     <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+</head>
+<body>
+
+    <div id="loginGate" class="container" style="padding-top:50px; max-width:400px;">
+        <div class="vault-form" style="background: rgba(0,21,41,0.8); border: 2px solid #D4AF37; padding: 20px; border-radius: 15px;">
+            <h2 style="text-align:center; color:#D4AF37;">IDENTIFICATION</h2>
+            <input type="email" id="admEmail" placeholder="Email Admin" style="width:100%; padding:10px; margin:10px 0;">
+            <input type="password" id="admPass" placeholder="Access Key" style="width:100%; padding:10px; margin:10px 0;">
+            <button onclick="login()" class="btn" style="width:100%; background:#D4AF37; padding:10px; border:none; font-weight:bold;">AUTHORIZE</button>
+        </div>
+    </div>
+
+    <div id="adminPanel" class="container" style="display:none; padding: 20px;">
+        <h1 class="navbar-brand">MARKAS NALAR</h1>
+        
+        <div style="display:flex; justify-content: space-between; margin-bottom:20px;">
+            <button onclick="logout()" class="btn" style="background:red; color:white; padding:5px 15px;">LOGOUT</button>
+            <a href="index.html" class="btn" style="color:#D4AF37;">LIHAT WEB</a>
+        </div>
+
+        <div class="vault-form" style="background: #001529; border: 1px solid #D4AF37; padding: 20px; border-radius: 10px; margin-bottom:20px;">
+            <h3 style="color:#D4AF37;">+ ANALISIS BARU (3 SISI MATA)</h3>
+            <input type="hidden" id="editId">
+            <input type="text" id="judul" placeholder="Judul Analisis Geopolitik" style="width:100%; padding:10px; margin:10px 0;">
+            
+            <label style="color:#888;">Isi Analisis:</label>
+            <div id="editor" style="background:white; color:black; height: 200px; margin-bottom:10px;"></div>
+            
+            <input type="text" id="linkBarat" placeholder="Link Sumber Barat (Reuters/CNN)" style="width:100%; padding:10px; margin:5px 0;">
+            <input type="text" id="linkTimur" placeholder="Link Sumber Timur (RT/Al Jazeera)" style="width:100%; padding:10px; margin:5px 0;">
+            <input type="text" id="linkNetral" placeholder="Link Fakta Netral (Data PBB/Lainnya)" style="width:100%; padding:10px; margin:5px 0;">
+            
+            <button onclick="saveNews()" class="btn" style="width:100%; background:#D4AF37; padding:15px; margin-top:10px; font-weight:bold;">PUBLISH ANALISIS</button>
+        </div>
+
+        <div class="vault-form" style="background: #001529; border: 1px solid #D4AF37; padding: 20px; border-radius: 10px;">
+            <h3 style="color:#D4AF37;">+ KOSAKATA KAMUS</h3>
+            <input type="text" id="term" placeholder="Istilah (Contoh: Hegemoni)" style="width:100%; padding:10px; margin:10px 0;">
+            <textarea id="def" placeholder="Definisi framing-nya..." style="width:100%; padding:10px; height:80px;"></textarea>
+            <button onclick="saveDict()" class="btn" style="width:100%; background:#D4AF37; padding:10px; margin-top:10px; font-weight:bold;">UPDATE KAMUS</button>
+        </div>
+
+        <hr style="margin:40px 0; border:0; border-top:1px solid #333;">
+
+        <h3 style="color:#D4AF37;">KELOLA KONTEN TERBIT</h3>
+        <div id="manageList" style="margin-top:20px;">
+            </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>
