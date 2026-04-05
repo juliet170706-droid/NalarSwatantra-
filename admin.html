@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Markas | Nalar Swatantra</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-body">
+    <div id="loginSection" class="form-container">
+        <h2>LOGIN ADMIN</h2>
+        <input type="email" id="adminEmail" placeholder="Email">
+        <input type="password" id="adminPassword" placeholder="Password">
+        <button id="btnLogin">MASUK</button>
+    </div>
+
+    <div id="dashboardSection" class="form-container hidden">
+        <h2>TAMBAH BERITA</h2>
+        <input type="text" id="newsTitle" placeholder="Judul Isu">
+        <textarea id="newsAnalysis" placeholder="Analisis Deep Dive..."></textarea>
+        <input type="text" id="linkWest" placeholder="Link Media Barat">
+        <input type="text" id="linkEast" placeholder="Link Media Timur">
+        <input type="text" id="linkNeutral" placeholder="Link Data/Netral">
+        <select id="newsCategory">
+            <option value="Geopolitik">Geopolitik</option>
+            <option value="Framing">Framing</option>
+            <option value="Data">Data</option>
+        </select>
+        <button id="btnPublish">PUBLISH</button>
+        <button id="btnLogout" class="btn-secondary">LOGOUT</button>
+    </div>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
