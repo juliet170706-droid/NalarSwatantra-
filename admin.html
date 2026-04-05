@@ -4,90 +4,155 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Vault - Nalar Swatantra</title>
-    <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="admin.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database-compat.js"></script>
-    <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-    <script defer src="admin.js"></script>
+    <script type="module" defer src="admin.js"></script>
 </head>
-<body class="admin-body">
-    <div class="vault-overlay"></div>
-    
+<body>
+    <!-- Vault Background -->
+    <div class="vault-bg">
+        <div class="vault-grid"></div>
+        <div class="vault-glow"></div>
+    </div>
+
     <!-- Login Screen -->
-    <div id="loginScreen" class="auth-screen">
-        <div class="auth-container">
-            <div class="logo">
-                <h1 class="title">Admin Vault</h1>
-                <div class="glow-effect"></div>
+    <div id="loginScreen" class="auth-container active">
+        <div class="auth-card">
+            <div class="vault-header">
+                <div class="vault-logo">
+                    <span class="vault-icon">🔐</span>
+                    <h1 class="vault-title">ADMIN VAULT</h1>
+                    <div class="vault-subtitle">Nalar Swatantra Intelligence</div>
+                </div>
             </div>
+            
             <form id="loginForm" class="auth-form">
-                <input type="email" id="email" placeholder="Email Admin" required>
-                <input type="password" id="password" placeholder="Kata Sandi" required>
-                <button type="submit" class="auth-btn">Masuk ke Vault</button>
+                <div class="form-group">
+                    <label class="form-label">Access Code</label>
+                    <div class="input-wrapper">
+                        <input type="email" id="loginEmail" required>
+                        <span class="input-icon">📧</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Security Key</label>
+                    <div class="input-wrapper">
+                        <input type="password" id="loginPassword" required>
+                        <span class="input-icon">🔑</span>
+                    </div>
+                </div>
+                <button type="submit" class="vault-btn primary">
+                    <span class="btn-text">AUTHENTICATE</span>
+                    <span class="btn-glow"></span>
+                </button>
             </form>
-            <div id="loginError" class="error-message"></div>
+            
+            <div id="authError" class="error-message"></div>
         </div>
     </div>
 
-    <!-- Admin Dashboard -->
-    <div id="adminDashboard" class="admin-dashboard hidden">
-        <header class="admin-header">
-            <div class="container">
-                <div class="logo">
-                    <h1 class="title">Admin Vault</h1>
+    <!-- Dashboard (HIDDEN BY DEFAULT) -->
+    <div id="dashboardSection" class="dashboard-container hidden">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="vault-logo small">
+                        <span class="vault-icon">🔐</span>
+                        <h2 class="vault-title small">ADMIN VAULT</h2>
+                    </div>
                 </div>
-                <div class="admin-controls">
-                    <span id="userEmail"></span>
-                    <button id="logoutBtn" class="logout-btn">Keluar</button>
+                <div class="header-right">
+                    <div class="user-info">
+                        <span id="userDisplayName" class="user-name"></span>
+                        <button id="logoutBtn" class="vault-btn secondary">
+                            LOGOUT
+                        </button>
+                    </div>
                 </div>
             </div>
         </header>
 
-        <main class="admin-main">
-            <!-- News Management -->
-            <section class="admin-section">
-                <div class="container">
-                    <h2 class="admin-title">Kelola Berita</h2>
-                    <form id="newsForm" class="admin-form">
-                        <input type="text" id="newsTitle" placeholder="Judul Berita" required>
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Create News -->
+            <section class="vault-section">
+                <h3 class="section-title">CREATE INTELLIGENCE BRIEF</h3>
+                <form id="newsForm" class="vault-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input type="text" id="newsTitle" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Category</label>
+                            <select id="newsCategory" required>
+                                <option value="">Select Category</option>
+                                <option value="Geopolitik">Geopolitik</option>
+                                <option value="Ekonomi">Ekonomi</option>
+                                <option value="Teknologi">Teknologi</option>
+                                <option value="Militer">Militer</option>
+                                <option value="Umum">Umum</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group full">
+                        <label>Analysis</label>
                         <div id="quillEditor"></div>
-                        <input type="url" id="westLink" placeholder="Link Sumber Barat">
-                        <input type="url" id="eastLink" placeholder="Link Sumber Timur">
-                        <input type="url" id="neutralLink" placeholder="Link Sumber Netral">
-                        <button type="submit">Simpan Berita</button>
-                    </form>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>West Source</label>
+                            <input type="url" id="westSource" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>East Source</label>
+                            <input type="url" id="eastSource" placeholder="https://...">
+                        </div>
+                        <div class="form-group">
+                            <label>Neutral Source</label>
+                            <input type="url" id="neutralSource" placeholder="https://...">
+                        </div>
+                    </div>
+                    <button type="submit" class="vault-btn primary full">DEPLOY BRIEF</button>
+                </form>
+            </section>
+
+            <!-- Create Dictionary -->
+            <section class="vault-section">
+                <h3 class="section-title">ADD NALAR TERMINOLOGY</h3>
+                <form id="dictForm" class="vault-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Istilah</label>
+                            <input type="text" id="dictTerm" required>
+                        </div>
+                    </div>
+                    <div class="form-group full">
+                        <label>Definisi</label>
+                        <textarea id="dictDefinition" rows="4" required></textarea>
+                    </div>
+                    <button type="submit" class="vault-btn primary full">ARCHIVE TERM</button>
+                </form>
+            </section>
+
+            <!-- News Management -->
+            <section class="vault-section">
+                <div class="section-header">
+                    <h3 class="section-title">INTELLIGENCE ARCHIVE</h3>
+                    <span id="newsCount" class="section-count">0 items</span>
                 </div>
+                <div id="newsList" class="management-list"></div>
             </section>
 
             <!-- Dictionary Management -->
-            <section class="admin-section">
-                <div class="container">
-                    <h2 class="admin-title">Kelola Kosakata</h2>
-                    <form id="dictForm" class="admin-form">
-                        <input type="text" id="dictTerm" placeholder="Istilah" required>
-                        <textarea id="dictDefinition" placeholder="Definisi" required></textarea>
-                        <button type="submit">Simpan Kosakata</button>
-                    </form>
+            <section class="vault-section">
+                <div class="section-header">
+                    <h3 class="section-title">TERMINOLOGY ARCHIVE</h3>
+                    <span id="dictCount" class="section-count">0 items</span>
                 </div>
-            </section>
-
-            <!-- News List -->
-            <section class="admin-section">
-                <div class="container">
-                    <h2 class="admin-title">Daftar Berita <span id="newsListCount">(0)</span></h2>
-                    <div id="newsList" class="admin-list"></div>
-                </div>
-            </section>
-
-            <!-- Dictionary List -->
-            <section class="admin-section">
-                <div class="container">
-                    <h2 class="admin-title">Daftar Kosakata <span id="dictListCount">(0)</span></h2>
-                    <div id="dictList" class="admin-list"></div>
-                </div>
+                <div id="dictList" class="management-list"></div>
             </section>
         </main>
     </div>
