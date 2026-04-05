@@ -10,32 +10,33 @@ if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.database();
 
-// Init Editor
+// Inisialisasi Editor Tulisan
 let quill;
 if(document.getElementById('editor')) {
-    quill = new Quill('#editor', { theme: 'snow', modules: { toolbar: [['bold', 'italic'], ['link'], [{ 'list': 'bullet' }]] } });
+    quill = new Quill('#editor', { theme: 'snow' });
 }
 
-// LOGIN SYSTEM
+// FUNGSI LOGIN
 window.login = () => {
     const e = document.getElementById('admEmail').value;
     const p = document.getElementById('admPass').value;
-    auth.signInWithEmailAndPassword(e, p).then(() => alert("Akses Diterima!")).catch(a => alert(a.message));
+    auth.signInWithEmailAndPassword(e, p).catch(err => alert(err.message));
 };
 
 window.logout = () => auth.signOut();
 
+// CEK STATUS LOGIN
 auth.onAuthStateChanged(user => {
     const gate = document.getElementById('loginGate');
     const panel = document.getElementById('adminPanel');
     if(gate && panel) {
         gate.style.display = user ? 'none' : 'block';
         panel.style.display = user ? 'block' : 'none';
-        if(user) loadAdminList();
+        if(user) loadAdminData();
     }
 });
 
-// SAVE NEWS
+// SIMPAN BERITA (TAMBAH & EDIT)
 window.saveNews = () => {
     const id = document.getElementById('editId').value;
     const data = {
@@ -44,37 +45,70 @@ window.saveNews = () => {
         barat: document.getElementById('linkBarat').value,
         timur: document.getElementById('linkTimur').value,
         netral: document.getElementById('linkNetral').value,
-        time: new Date().getTime()
+        tanggal: new Date().toLocaleDateString('id-ID')
     };
-    if(id) db.ref('berita/' + id).update(data);
-    else db.ref('berita').push(data);
-    alert("Berhasil!"); location.reload();
+
+    if(id) {
+        db.ref('berita/' + id).update(data).then(() => { alert("Update Berhasil!"); resetForm(); });
+    } else {
+        db.ref('berita').push(data).then(() => { alert("Analisis Terbit!"); resetForm(); });
+    }
 };
 
-// LOAD CONTENT
-if(document.getElementById('newsGrid')) {
+// SIMPAN KAMUS
+window.saveDict = () => {
+    const term = document.getElementById('term').value;
+    const def = document.getElementById('def').value;
+    db.ref('kamus').push({ istilah: term, definisi: def }).then(() => {
+        alert("Kamus Berhasil Ditambah!");
+        document.getElementById('term').value = "";
+        document.getElementById('def').value = "";
+    });
+};
+
+// LOAD DATA UNTUK DIKELOLA
+function loadAdminData() {
     db.ref('berita').on('value', snap => {
-        let h = '';
-        snap.forEach(c => {
-            const d = c.val();
-            h += `<div class="news-card">
-                <h3>${d.judul}</h3>
-                <div style="font-size:0.9rem;">${d.isi}</div>
-                <div class="source-wrap">
-                    <a href="${d.barat}" class="src-btn">BARAT</a>
-                    <a href="${d.timur}" class="src-btn">TIMUR</a>
-                    <a href="${d.netral}" class="src-btn">NETRAL</a>
-                </div>
-            </div>`;
+        let html = '<div style="display:grid; gap:10px;">';
+        snap.forEach(child => {
+            const d = child.val();
+            html += `
+                <div style="background:#002140; padding:10px; border-radius:5px; display:flex; justify-content:space-between; align-items:center;">
+                    <span>${d.judul}</span>
+                    <div>
+                        <button onclick="editNews('${child.key}')" style="background:orange; color:white; border:none; padding:5px;">EDIT</button>
+                        <button onclick="deleteNews('${child.key}')" style="background:red; color:white; border:none; padding:5px;">HAPUS</button>
+                    </div>
+                </div>`;
         });
-        document.getElementById('newsGrid').innerHTML = h;
+        document.getElementById('manageList').innerHTML = html + '</div>';
     });
 }
 
-// SEARCH
-window.search = () => {
-    let q = document.getElementById('searchBar').value.toLowerCase();
-    document.querySelectorAll('.news-card').forEach(c => {
-        c.style.display = c.innerText.toLowerCase().includes(q) ? 'block' : 'none';
+// HAPUS BERITA
+window.deleteNews = (id) => {
+    if(confirm("Yakin mau hapus analisis ini?")) db.ref('berita/' + id).remove();
+};
+
+// EDIT BERITA (Tarik data ke atas)
+window.editNews = (id) => {
+    db.ref('berita/' + id).once('value', snap => {
+        const d = snap.val();
+        document.getElementById('editId').value = id;
+        document.getElementById('judul').value = d.judul;
+        quill.root.innerHTML = d.isi;
+        document.getElementById('linkBarat').value = d.barat;
+        document.getElementById('linkTimur').value = d.timur;
+        document.getElementById('linkNetral').value = d.netral;
+        window.scrollTo(0,0);
     });
 };
+
+function resetForm() {
+    document.getElementById('editId').value = "";
+    document.getElementById('judul').value = "";
+    quill.root.innerHTML = "";
+    document.getElementById('linkBarat').value = "";
+    document.getElementById('linkTimur').value = "";
+    document.getElementById('linkNetral').value = "";
+}
