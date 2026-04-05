@@ -1,290 +1,46 @@
-/* --- Variables & Core --- */
 :root {
     --navy: #001A33;
-    --white: #F5F5F5;
     --gold: #D4AF37;
-    --header-font: 'Cinzel', serif;
-    --body-font: 'Montserrat', sans-serif;
-    --transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    --white: #F5F5F5;
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-html {
-    scroll-behavior: smooth;
-}
-
-body {
-    background-color: var(--navy);
-    color: var(--white);
-    font-family: var(--body-font);
+body { 
+    background: var(--navy); 
+    color: var(--white); 
+    font-family: 'Montserrat', sans-serif; 
+    padding: 20px;
     line-height: 1.6;
-    overflow-x: hidden;
-    -webkit-font-smoothing: antialiased;
 }
 
-.container {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 2rem;
+header { text-align: center; padding: 40px 0; }
+.logo { font-family: 'Cinzel', serif; color: var(--gold); letter-spacing: 3px; font-size: 1.8rem; }
+.tagline { font-size: 0.8rem; opacity: 0.8; margin-top: 10px; }
+
+.search-container { margin-bottom: 30px; }
+input, textarea, select {
+    width: 100%; padding: 15px; background: rgba(255,255,255,0.05);
+    border: 1px solid var(--gold); color: white; border-radius: 5px; margin-bottom: 15px;
 }
 
-.text-center { text-align: center; }
-
-/* --- Aesthetic Grain Overlay --- */
-.grain {
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: url('https://grainy-gradients.vercel.app/noise.svg');
-    opacity: 0.05;
-    pointer-events: none;
-    z-index: 9999;
+button {
+    width: 100%; padding: 15px; background: var(--gold);
+    color: var(--navy); border: none; font-weight: bold; cursor: pointer; border-radius: 5px;
 }
 
-/* --- Navigation --- */
-.nav-minimal {
-    padding: 2rem 0;
-    position: absolute;
-    width: 100%;
-    z-index: 10;
+.news-card {
+    background: rgba(255,255,255,0.03); border-left: 3px solid var(--gold);
+    padding: 20px; margin-bottom: 20px; border-radius: 0 5px 5px 0;
 }
 
-.nav-brand {
-    font-size: 0.8rem;
-    letter-spacing: 4px;
-    font-weight: 600;
-    color: var(--gold);
-}
+.news-card h3 { color: var(--gold); margin-bottom: 10px; font-family: 'Cinzel'; }
+.links { margin-top: 15px; font-size: 0.8rem; }
+.links a { color: var(--gold); margin-right: 10px; text-decoration: none; border-bottom: 1px solid; }
 
-.nav-links a {
-    color: var(--white);
-    text-decoration: none;
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-left: 2rem;
-    transition: var(--transition);
-}
-
-.nav-links a:hover {
-    color: var(--gold);
-}
-
-.flex-between {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-/* --- Hero Section --- */
-.hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.main-title {
-    font-family: var(--header-font);
-    font-size: clamp(2.5rem, 8vw, 5rem);
-    color: var(--gold);
-    letter-spacing: 8px;
-    margin-bottom: 0.5rem;
-}
-
-.subtitle {
-    font-weight: 200;
-    letter-spacing: 5px;
-    font-size: 0.9rem;
-    opacity: 0.8;
-    margin-bottom: 4rem;
-}
-
-.search-wrapper {
-    position: relative;
-    max-width: 400px;
-    margin: 0 auto;
-}
-
-.search-input {
-    width: 100%;
-    background: transparent;
-    border: none;
-    padding: 1rem 0;
-    color: var(--white);
-    font-family: var(--body-font);
-    text-align: center;
-    font-size: 1.1rem;
-    outline: none;
-}
-
-.search-line {
-    height: 1px;
-    background: rgba(212, 175, 55, 0.3);
-    width: 100%;
-    transition: var(--transition);
-}
-
-.search-input:focus + .search-line {
-    background: var(--gold);
-    transform: scaleX(1.1);
-}
-
-/* --- Intelligence Grid --- */
-.intelligence {
-    padding: 10rem 0;
-}
-
-.section-label {
-    font-family: var(--header-font);
-    font-size: 1.5rem;
-    margin-bottom: 4rem;
-    color: var(--gold);
-    border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 1rem;
-}
-
-.intel-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-}
-
-.intel-item {
-    border-left: 1px solid rgba(212, 175, 55, 0.2);
-    padding-left: 1.5rem;
-    transition: var(--transition);
-}
-
-.intel-item:hover {
-    border-left: 1px solid var(--gold);
-    transform: translateX(10px);
-}
-
-.intel-meta {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    opacity: 0.5;
-}
-
-.intel-title {
-    font-family: var(--header-font);
-    font-size: 1.4rem;
-    margin: 1rem 0;
-    font-weight: 400;
-}
-
-.intel-link {
-    color: var(--gold);
-    text-decoration: none;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* --- The Vault --- */
-.vault {
-    padding: 5rem 0 10rem;
-}
-
-.vault-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-}
-
-.vault-btn {
-    border: 1px solid var(--gold);
-    padding: 3rem 2rem;
-    text-decoration: none;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: var(--transition);
-}
-
-.btn-label {
-    font-size: 0.6rem;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    color: var(--gold);
-    margin-bottom: 0.5rem;
-}
-
-.btn-text {
-    font-family: var(--header-font);
-    font-size: 1.8rem;
-    color: var(--white);
-}
-
-.vault-btn:hover {
-    background: rgba(212, 175, 55, 0.05);
-    box-shadow: 0 0 30px rgba(212, 175, 55, 0.1);
-}
-
-.gold-fill {
-    background: rgba(212, 175, 55, 0.05);
-}
-
-/* --- Footer Area --- */
-.about {
-    padding: 10rem 0 4rem;
-    background: rgba(0, 0, 0, 0.2);
-}
-
-.footer-title {
-    font-family: var(--header-font);
-    color: var(--gold);
-    margin-bottom: 2rem;
-}
-
-.footer-desc {
-    font-weight: 300;
-    max-width: 600px;
-    margin-bottom: 3rem;
-    font-size: 1.1rem;
-}
-
-.social-links a {
-    color: var(--white);
-    text-decoration: none;
-    font-size: 0.9rem;
-    letter-spacing: 1px;
-}
-
-.divider { margin: 0 1rem; opacity: 0.3; }
-
-.copyright {
-    margin-top: 6rem;
-    font-size: 0.7rem;
-    opacity: 0.4;
-    letter-spacing: 1px;
-}
-
-/* --- Reveal Animations --- */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 1s ease-out;
-}
-
-.reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* --- Responsive --- */
-@media (max-width: 768px) {
-    .intel-grid, .vault-container {
-        grid-template-columns: 1fr;
-    }
-    .main-title { font-size: 2.8rem; }
-    .nav-links { display: none; }
-}
+.hidden { display: none; }
+.admin-body { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+.form-container { width: 100%; max-width: 400px; }
+footer { margin-top: 50px; border-top: 1px solid rgba(212,175,55,0.3); padding-top: 20px; text-align: center; }
+.about-section p { font-size: 0.85rem; opacity: 0.7; }
+.admin-link a { font-size: 0.7rem; color: var(--gold); opacity: 0.5; text-decoration: none; }
