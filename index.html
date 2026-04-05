@@ -3,92 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nalar Swatantra - Intelligence Vault</title>
+    <title>Nalar Swatantra | Intelligence Vault</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database-compat.js"></script>
-    <script defer src="script.js"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.bubble.css" rel="stylesheet">
 </head>
 <body>
-    <div class="vault-overlay"></div>
-    
-    <header class="header">
-        <div class="container">
-            <div class="logo">
-                <h1 class="title">Nalar Swatantra</h1>
-                <div class="glow-effect"></div>
-            </div>
-            <nav class="nav">
-                <a href="#" class="nav-link active" data-section="news">Intelijen Berita</a>
-                <a href="#" class="nav-link" data-section="dictionary">Kosakata Nalar</a>
-                <a href="admin.html" class="admin-btn">Admin Vault</a>
-            </nav>
+
+    <header class="container">
+        <h1 class="navbar-brand">Nalar Swatantra</h1>
+        <div class="main-menu">
+            <a href="#dictionary" class="btn">Kamus</a>
+            <a href="admin.html" class="btn btn-active">Admin Login</a>
+            <input type="text" id="searchBar" placeholder="Cari Analisis..." style="max-width:300px; margin:0;" onkeyup="search()">
         </div>
     </header>
 
-    <main class="main">
-        <!-- Search Bar -->
-        <section class="search-section">
-            <div class="container">
-                <div class="search-container">
-                    <input type="text" id="searchInput" placeholder="Cari intelijen berita atau kosakata nalar..." class="search-input">
-                    <div class="search-icon">🔍</div>
-                </div>
-            </div>
+    <main class="container">
+        <div id="newsGrid" class="news-grid"></div>
+        
+        <section id="dictionary" class="info-sec">
+            <h2>Kamus Nalar</h2>
+            <div id="dictContent"></div>
         </section>
 
-        <!-- News Section -->
-        <section id="newsSection" class="content-section active">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Intelijen Berita</h2>
-                    <div class="stats">
-                        <span id="newsCount">0</span> Dokumen
-                    </div>
-                </div>
-                <div id="newsGrid" class="news-grid">
-                    <div class="loading-grid">
-                        <div class="loading-card"></div>
-                        <div class="loading-card"></div>
-                        <div class="loading-card"></div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Dictionary Section -->
-        <section id="dictionarySection" class="content-section">
-            <div class="container">
-                <div class="section-header">
-                    <h2 class="section-title">Kosakata Nalar</h2>
-                    <div class="stats">
-                        <span id="dictCount">0</span> Istilah
-                    </div>
-                </div>
-                <div id="dictionaryGrid" class="dictionary-grid">
-                    <div class="loading-grid">
-                        <div class="loading-dict"></div>
-                        <div class="loading-dict"></div>
-                        <div class="loading-dict"></div>
-                    </div>
-                </div>
-            </div>
+        <section class="info-sec">
+            <h2>Visi & Misi</h2>
+            <p>Membongkar hegemoni narasi tunggal melalui analisis tiga sudut pandang.</p>
         </section>
     </main>
 
-    <!-- Source Modal -->
-    <div id="sourceModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 id="modalTitle"></h3>
-                <button class="modal-close">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div id="modalSources"></div>
-            </div>
-        </div>
-    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
