@@ -4,62 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Vault - Nalar Swatantra</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     <style>
-        body { background: #000B1A; color: #F5F5F5; font-family: sans-serif; text-align: center; padding: 20px; }
-        .vault-card { background: rgba(0,0,0,0.5); border: 1px solid #D4AF37; padding: 20px; border-radius: 10px; max-width: 400px; margin: auto; }
-        input { width: 90%; padding: 12px; margin: 10px 0; background: #001529; border: 1px solid #D4AF37; color: white; border-radius: 5px; }
-        button { background: #D4AF37; color: #000; border: none; padding: 12px 25px; cursor: pointer; font-weight: bold; width: 100%; border-radius: 5px; }
-        #dashboard { display: none; } /* Tersembunyi sebelum login */
+        body { background: #000B1A; color: #F5F5F5; font-family: 'Rajdhani', sans-serif; text-align: center; padding: 20px; }
+        .vault-card { background: rgba(0,21,41,0.8); border: 2px solid #D4AF37; padding: 30px; border-radius: 15px; max-width: 350px; margin: 50px auto; box-shadow: 0 0 20px rgba(212, 175, 55, 0.2); }
+        h1 { color: #D4AF37; text-transform: uppercase; letter-spacing: 3px; font-size: 1.5rem; }
+        input { width: 90%; padding: 15px; margin: 10px 0; background: #000; border: 1px solid #333; color: #D4AF37; border-radius: 8px; font-size: 1rem; }
+        input:focus { border-color: #D4AF37; outline: none; }
+        button { background: #D4AF37; color: #000; border: none; padding: 15px; cursor: pointer; font-weight: bold; width: 100%; border-radius: 8px; margin-top: 10px; transition: 0.3s; }
+        button:active { transform: scale(0.95); }
+        #dashboard { display: none; }
     </style>
 </head>
 <body>
 
-    <h1 style="color:#D4AF37;">ADMIN VAULT</h1>
-
     <div id="loginSection" class="vault-card">
-        <h3>Akses Terbatas</h3>
-        <input type="email" id="email" placeholder="Email Admin">
-        <input type="password" id="password" placeholder="Kata Sandi">
-        <button id="btnLogin">MASUK KE VAULT</button>
+        <h1>Nalar Vault</h1>
+        <p style="font-size: 0.8rem; color: #888;">IDENTIFICATION REQUIRED</p>
+        <input type="email" id="email" placeholder="ADMIN EMAIL">
+        <input type="password" id="password" placeholder="ACCESS KEY">
+        <button id="btnLogin">AUTHORIZE</button>
     </div>
 
     <div id="dashboard" class="vault-card">
-        <h2>Selamat Datang, Bos!</h2>
-        <p>Markas sudah siap dioperasikan.</p>
-        <button onclick="logout()" style="background:red; color:white;">KELUAR</button>
-        </div>
+        <h1>Akses Diterima</h1>
+        <p>Selamat Datang, Bos Vicky.</p>
+        <hr border="1" color="#D4AF37">
+        <button onclick="logout()" style="background:#555; color:white;">LOGOUT SYSTEM</button>
+    </div>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-
-        const firebaseConfig = {
+    <script>
+        // Konfigurasi Langsung Milik Bos Vicky
+        var firebaseConfig = {
             apiKey: "AIzaSyCzuYywt3E-nMaQAhzjxvs6l8ZOGyhMx2k",
             authDomain: "nalarswatantra.firebaseapp.com",
             projectId: "nalarswatantra",
             databaseURL: "https://nalarswatantra-default-rtdb.asia-southeast1.firebasedatabase.app",
+            storageBucket: "nalarswatantra.appspot.com",
             appId: "1:1043078166951:web:ff2b5dc5d597d296f5de82"
         };
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        // Inisialisasi
+        if (!firebase.apps.length) {
+            firebase.initializeApp(firebaseConfig);
+        }
+        var auth = firebase.auth();
 
-        // Tombol Login
-        document.getElementById('btnLogin').addEventListener('click', () => {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
+        // Fungsi Login
+        document.getElementById('btnLogin').onclick = function() {
+            var email = document.getElementById('email').value;
+            var password = document.getElementById('password').value;
 
-            signInWithEmailAndPassword(auth, email, password)
-                .then((userCredential) => {
-                    alert("Akses Diterima! Membuka Vault...");
+            auth.signInWithEmailAndPassword(email, password)
+                .then(function() {
+                    alert("Akses Berhasil! Memasuki Markas...");
                 })
-                .catch((error) => {
-                    alert("Akses Ditolak: " + error.message);
+                .catch(function(error) {
+                    alert("Error: " + error.message);
                 });
-        });
+        };
 
-        // Cek Status Login
-        onAuthStateChanged(auth, (user) => {
+        // Cek Status Login (Gerbang Otomatis)
+        auth.onAuthStateChanged(function(user) {
             if (user) {
                 document.getElementById('loginSection').style.display = 'none';
                 document.getElementById('dashboard').style.display = 'block';
@@ -69,10 +76,10 @@
             }
         });
 
-        // Fungsi Keluar
-        window.logout = () => {
-            signOut(auth).then(() => alert("Berhasil Keluar"));
-        };
+        // Logout
+        function logout() {
+            auth.signOut();
+        }
     </script>
 </body>
 </html>
