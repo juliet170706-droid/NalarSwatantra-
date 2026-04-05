@@ -1,46 +1,228 @@
 :root {
-    --navy: #001A33;
-    --gold: #D4AF37;
-    --white: #F5F5F5;
+    --navy-deep: #000B1A;
+    --navy-dark: #001A33;
+    --gold-luminous: #D4AF37;
+    --gold-dark: #B8942E;
+    --white-off: #F8F9FA;
+    --glass-bg: rgba(248, 249, 250, 0.05);
+    --glass-border: rgba(248, 249, 250, 0.1);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-body { 
-    background: var(--navy); 
-    color: var(--white); 
-    font-family: 'Montserrat', sans-serif; 
-    padding: 20px;
+body {
+    font-family: 'Inter', sans-serif;
+    background: var(--navy-deep);
+    color: var(--white-off);
     line-height: 1.6;
+    overflow-x: hidden;
+    min-height: 100vh;
 }
 
-header { text-align: center; padding: 40px 0; }
-.logo { font-family: 'Cinzel', serif; color: var(--gold); letter-spacing: 3px; font-size: 1.8rem; }
-.tagline { font-size: 0.8rem; opacity: 0.8; margin-top: 10px; }
-
-.search-container { margin-bottom: 30px; }
-input, textarea, select {
-    width: 100%; padding: 15px; background: rgba(255,255,255,0.05);
-    border: 1px solid var(--gold); color: white; border-radius: 5px; margin-bottom: 15px;
+.app-container {
+    min-height: 100vh;
+    position: relative;
 }
 
-button {
-    width: 100%; padding: 15px; background: var(--gold);
-    color: var(--navy); border: none; font-weight: bold; cursor: pointer; border-radius: 5px;
+/* Header */
+.header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(0, 11, 26, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    padding: 1rem 0;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.vault-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    background: linear-gradient(135deg, var(--gold-luminous), #FAD761);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: goldPulse 4s ease-in-out infinite;
+}
+
+@keyframes goldPulse {
+    0%, 100% { filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.3)); }
+    50% { filter: drop-shadow(0 0 12px rgba(212, 175, 55, 0.6)); }
+}
+
+.search-container {
+    position: relative;
+    flex: 1;
+    max-width: 400px;
+    margin: 0 1rem;
+}
+
+.search-input {
+    width: 100%;
+    padding: 0.75rem 3rem 0.75rem 1rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 50px;
+    color: var(--white-off);
+    font-size: 0.95rem;
+    backdrop-filter: blur(20px);
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--gold-luminous);
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.2);
+}
+
+.search-icon {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold-luminous);
+    font-size: 1.2rem;
+}
+
+.admin-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--glass-bg);
+    color: var(--gold-luminous);
+    text-decoration: none;
+    border-radius: 50px;
+    border: 1px solid var(--glass-border);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.admin-btn:hover {
+    background: rgba(212, 175, 55, 0.1);
+    border-color: var(--gold-luminous);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+/* Sections */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.section-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 500;
+}
+
+.stats {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    font-weight: 300;
+}
+
+/* News Grid */
+.news-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 4rem;
 }
 
 .news-card {
-    background: rgba(255,255,255,0.03); border-left: 3px solid var(--gold);
-    padding: 20px; margin-bottom: 20px; border-radius: 0 5px 5px 0;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
 }
 
-.news-card h3 { color: var(--gold); margin-bottom: 10px; font-family: 'Cinzel'; }
-.links { margin-top: 15px; font-size: 0.8rem; }
-.links a { color: var(--gold); margin-right: 10px; text-decoration: none; border-bottom: 1px solid; }
+.news-card.animate {
+    opacity: 1;
+    transform: translateY(0);
+}
 
-.hidden { display: none; }
-.admin-body { display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-.form-container { width: 100%; max-width: 400px; }
-footer { margin-top: 50px; border-top: 1px solid rgba(212,175,55,0.3); padding-top: 20px; text-align: center; }
-.about-section p { font-size: 0.85rem; opacity: 0.7; }
-.admin-link a { font-size: 0.7rem; color: var(--gold); opacity: 0.5; text-decoration: none; }
+.news-card:hover {
+    border-color: var(--gold-luminous);
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.15);
+    transform: translateY(-4px);
+}
+
+.news-category {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--gold-luminous);
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 1rem;
+}
+
+.news-title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    line-height: 1.4;
+}
+
+.news-analysis {
+    font-size: 0.95rem;
+    opacity: 0.9;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.source-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.source-btn {
+    flex: 1;
+    min-width: 80px;
+    padding: 0.5rem 0.75rem;
+    background: rgba(248, 249, 250, 0.05);
+    color: var(--white-off);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    text-align: center;
+    transition:
