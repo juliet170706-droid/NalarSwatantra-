@@ -1,59 +1,94 @@
-l<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nalar Swatantra - Digital Intelligence Vault</title>
+    <title>Nalar Swatantra - Intelligence Vault</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-database-compat.js"></script>
+    <script defer src="script.js"></script>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <header class="header">
-            <div class="header-content">
-                <h1 class="vault-title">NALAR SWATANTRA</h1>
-                <div class="header-actions">
-                    <div class="search-container">
-                        <input type="text" id="searchInput" class="search-input" placeholder="Cari analisis atau kosakata...">
-                        <div class="search-icon">⟐</div>
-                    </div>
-                    <a href="admin.html" class="admin-btn" target="_blank">ADMIN</a>
+    <div class="vault-overlay"></div>
+    
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <h1 class="title">Nalar Swatantra</h1>
+                <div class="glow-effect"></div>
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-link active" data-section="news">Intelijen Berita</a>
+                <a href="#" class="nav-link" data-section="dictionary">Kosakata Nalar</a>
+                <a href="admin.html" class="admin-btn">Admin Vault</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main">
+        <!-- Search Bar -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <input type="text" id="searchInput" placeholder="Cari intelijen berita atau kosakata nalar..." class="search-input">
+                    <div class="search-icon">🔍</div>
                 </div>
             </div>
-        </header>
+        </section>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <!-- Intelligence Feed -->
-            <section class="intelligence-feed">
+        <!-- News Section -->
+        <section id="newsSection" class="content-section active">
+            <div class="container">
                 <div class="section-header">
-                    <h2 class="section-title">Intelligence Feed</h2>
+                    <h2 class="section-title">Intelijen Berita</h2>
                     <div class="stats">
-                        <span id="newsCount">0</span> analisis
+                        <span id="newsCount">0</span> Dokumen
                     </div>
                 </div>
-                <div id="newsContainer" class="news-grid"></div>
-                <div id="noResults" class="no-results hidden">
-                    <p>Tidak ada hasil untuk pencarian ini.</p>
-                </div>
-            </section>
-
-            <!-- Dictionary -->
-            <section class="dictionary-section">
-                <div class="section-header">
-                    <h2 class="section-title">Kamus Nalar</h2>
-                    <div class="stats">
-                        <span id="dictCount">0</span> kosakata
+                <div id="newsGrid" class="news-grid">
+                    <div class="loading-grid">
+                        <div class="loading-card"></div>
+                        <div class="loading-card"></div>
+                        <div class="loading-card"></div>
                     </div>
                 </div>
-                <div id="dictionaryContainer" class="dictionary-grid"></div>
             </div>
-        </main>
+        </section>
+
+        <!-- Dictionary Section -->
+        <section id="dictionarySection" class="content-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Kosakata Nalar</h2>
+                    <div class="stats">
+                        <span id="dictCount">0</span> Istilah
+                    </div>
+                </div>
+                <div id="dictionaryGrid" class="dictionary-grid">
+                    <div class="loading-grid">
+                        <div class="loading-dict"></div>
+                        <div class="loading-dict"></div>
+                        <div class="loading-dict"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Source Modal -->
+    <div id="sourceModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div id="modalSources"></div>
+            </div>
+        </div>
     </div>
-
-    <!-- Firebase + Quill -->
-    <script type="module" src="app.js"></script>
 </body>
 </html>
