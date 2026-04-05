@@ -3,117 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nalar Swatantra | Digital Intelligence Hub</title>
-    
-    <!-- Typography: Cinzel (Header) & Montserrat (Body) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@200;300;400;600&display=swap" rel="stylesheet">
-    
+    <title>Nalar Swatantra | Digital Archive</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Subtle Grain Overlay for Aesthetic Texture -->
-    <div class="grain"></div>
-
-    <nav class="nav-minimal">
-        <div class="container flex-between">
-            <span class="nav-brand">#NALARSWATANTRA</span>
-            <div class="nav-links">
-                <a href="#intelligence">Archives</a>
-                <a href="#vault">The Vault</a>
-            </div>
-        </div>
-    </nav>
+    <header>
+        <h1 class="logo">NALAR SWATANTRA</h1>
+        <p class="tagline">> Bongkar Framing. Jaga Kewarasan.</p>
+    </header>
 
     <main>
-        <!-- Hero Section -->
-        <section class="hero reveal">
-            <div class="container text-center">
-                <h1 class="main-title">NALAR SWATANTRA</h1>
-                <p class="subtitle">> Bongkar Framing. Jaga Kewarasan.</p>
-                <div class="search-wrapper">
-                    <input type="text" class="search-input" placeholder="Cari Isu...">
-                    <div class="search-line"></div>
-                </div>
-            </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Cari Isu...">
+        </div>
+
+        <section id="newsContainer" class="news-grid">
+            <p class="loading">Memuat data nalar...</p>
         </section>
-
-        <!-- Latest Intelligence Grid -->
-        <section id="intelligence" class="intelligence reveal">
-            <div class="container">
-                <h2 class="section-label">Latest Intelligence</h2>
-                <div class="intel-grid">
-                    <!-- Post 1 -->
-                    <article class="intel-item">
-                        <span class="intel-meta">12.03.2024 | Geopolitik</span>
-                        <h3 class="intel-title">Analisis Eskalasi Proksi Timur Tengah</h3>
-                        <a href="#" class="intel-link">View Report</a>
-                    </article>
-
-                    <!-- Post 2 -->
-                    <article class="intel-item">
-                        <span class="intel-meta">08.03.2024 | Data</span>
-                        <h3 class="intel-title">Membaca Pergerakan Satelit di Perbatasan Nordik</h3>
-                        <a href="#" class="intel-link">View Report</a>
-                    </article>
-
-                    <!-- Post 3 -->
-                    <article class="intel-item">
-                        <span class="intel-meta">01.03.2024 | Framing</span>
-                        <h3 class="intel-title">Dekonstruksi Narasi Media Barat Terhadap BRICS</h3>
-                        <a href="#" class="intel-link">View Report</a>
-                    </article>
-
-                    <!-- Post 4 -->
-                    <article class="intel-item">
-                        <span class="intel-meta">25.02.2024 | Ekonomi</span>
-                        <h3 class="intel-title">Senjata Petrodollar dan Defisit Global</h3>
-                        <a href="#" class="intel-link">View Report</a>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <!-- The Vault Section -->
-        <section id="vault" class="vault reveal">
-            <div class="container">
-                <div class="vault-container">
-                    <a href="#" class="vault-btn">
-                        <span class="btn-label">Access</span>
-                        <span class="btn-text">Kamus Nalar</span>
-                    </a>
-                    <a href="#" class="vault-btn gold-fill">
-                        <span class="btn-label">Access</span>
-                        <span class="btn-text">Digital Library</span>
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- About / Footer Area -->
-        <footer class="about reveal">
-            <div class="container">
-                <div class="footer-content">
-                    <h2 class="footer-title">Tentang Kami</h2>
-                    <p class="footer-desc">
-                        Bukan pahlawan, cuma penyaring sampah informasi. <br>
-                        Kami membedah geopolitik dan narasi viral tanpa sentimen buta.
-                    </p>
-                    <div class="social-links">
-                        <a href="https://instagram.com/nalarswatantra" target="_blank">Instagram</a>
-                        <span class="divider">/</span>
-                        <a href="#">GitHub</a>
-                    </div>
-                </div>
-                <div class="copyright">
-                    &copy; 2024 Nalar Swatantra. Intelligence for the Independent Mind.
-                </div>
-            </div>
-        </footer>
     </main>
 
-    <script src="script.js"></script>
+    <footer>
+        <div class="about-section">
+            <h3>Tentang Kami</h3>
+            <p>Penyaring sampah informasi. Kami membedah geopolitik tanpa sentimen buta.</p>
+        </div>
+        <div class="admin-link">
+            <a href="admin.html">Markas Admin</a>
+        </div>
+    </footer>
+
+    <script type="module" src="script.js"></script>
 </body>
 </html>
