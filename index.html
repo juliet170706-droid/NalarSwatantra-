@@ -1,38 +1,59 @@
-<!DOCTYPE html>
+l<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nalar Swatantra | Digital Archive</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Nalar Swatantra - Digital Intelligence Vault</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1 class="logo">NALAR SWATANTRA</h1>
-        <p class="tagline">> Bongkar Framing. Jaga Kewarasan.</p>
-    </header>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="vault-title">NALAR SWATANTRA</h1>
+                <div class="header-actions">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Cari analisis atau kosakata...">
+                        <div class="search-icon">⟐</div>
+                    </div>
+                    <a href="admin.html" class="admin-btn" target="_blank">ADMIN</a>
+                </div>
+            </div>
+        </header>
 
-    <main>
-        <div class="search-container">
-            <input type="text" id="searchInput" placeholder="Cari Isu...">
-        </div>
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Intelligence Feed -->
+            <section class="intelligence-feed">
+                <div class="section-header">
+                    <h2 class="section-title">Intelligence Feed</h2>
+                    <div class="stats">
+                        <span id="newsCount">0</span> analisis
+                    </div>
+                </div>
+                <div id="newsContainer" class="news-grid"></div>
+                <div id="noResults" class="no-results hidden">
+                    <p>Tidak ada hasil untuk pencarian ini.</p>
+                </div>
+            </section>
 
-        <section id="newsContainer" class="news-grid">
-            <p class="loading">Memuat data nalar...</p>
-        </section>
-    </main>
+            <!-- Dictionary -->
+            <section class="dictionary-section">
+                <div class="section-header">
+                    <h2 class="section-title">Kamus Nalar</h2>
+                    <div class="stats">
+                        <span id="dictCount">0</span> kosakata
+                    </div>
+                </div>
+                <div id="dictionaryContainer" class="dictionary-grid"></div>
+            </div>
+        </main>
+    </div>
 
-    <footer>
-        <div class="about-section">
-            <h3>Tentang Kami</h3>
-            <p>Penyaring sampah informasi. Kami membedah geopolitik tanpa sentimen buta.</p>
-        </div>
-        <div class="admin-link">
-            <a href="admin.html">Markas Admin</a>
-        </div>
-    </footer>
-
-    <script type="module" src="script.js"></script>
+    <!-- Firebase + Quill -->
+    <script type="module" src="app.js"></script>
 </body>
 </html>
